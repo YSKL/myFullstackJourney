@@ -64,16 +64,16 @@ str3 = """
         举头望明月，
         低头思故乡。
       """  # 三引号，多行字符串
-print(str1 + ", " + str2)  # 拼接
-print("ha" * 3)  # haha 重复 3 次 → hahahaha
+print(str1 + ', ' + str2)  # 拼接
+print('ha' * 3)  # haha 重复 3 次 → hahahaha
 
 # 切片
-str = 'Python'
-print(str[0])  # P 第一个字符（下标从0开始）
-print(str[-1])  # n 最后一个字符
-print(str[0:3])  # Pyt 取0、1、2，不包含3
-print(str[2:])  # thon 从2到结尾
-print(str[::-1])  # nohtyP 反转
+st1 = 'Python'
+print(st1[0])  # P 第一个字符（下标从0开始）
+print(st1[-1])  # n 最后一个字符
+print(st1[0:3])  # Pyt 取0、1、2，不包含3
+print(st1[2:])  # thon 从2到结尾
+print(st1[::-1])  # nohtyP 反转
 
 # f-string格式化
 name = '小刚'
@@ -82,7 +82,7 @@ print(f"{name} 这次考了{score}分，{'及格' if score >= 60 else '不及格
 
 # 10个常用方法
 s = ' Hello Python '
-print(s.strip())  # 'Hello Python'  去首尾空格
+print(s.strip())  # 'Hello Python' 去首尾空格。 str.strip('xxx'):从字符串'两端'开始删除，直到遇到第一个不在指定字符串中的字符就停下。
 print(s.lower())  # 全小写
 print(s.upper())  # 全大写
 print(s.replace("o", "0"))  # 替换

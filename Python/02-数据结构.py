@@ -1,11 +1,21 @@
 # 列表list：会变长的购物车
 # 创建与索引
+l1 = []
+l2 = list()
+print(l1, l2)
+
 fruits = ['苹果', '香蕉']
 print(fruits[0])  # 苹果
 print(fruits[-1])  # 香蕉
 print(len(fruits))  # 2
 
 # 切片（同字符串）
+# 语法：序列[起始索引:结束索引:步长] 不改变原数据，返回新数据。返回的数据中不包括结束索引位置的值。
+# 起始索引：默认从头开始（下标0）
+# 结束索引：默认截取到末尾（容器中元素总个数）
+# 步长：默认为1
+# 序列包括：列表、元组、字符串
+# 当起始索引大于结束索引时，步长必须为负数，否则结果是空列表。
 nums = [10, 20, 30, 40, 50]
 print(nums[1:4])  # [20, 30, 40]
 print(nums[::-1])  # [50, 40, 30, 20, 10] 反转
@@ -14,21 +24,42 @@ print(nums[::-1])  # [50, 40, 30, 20, 10] 反转
 # 增
 fruits.append('橘子')  # 末尾追加 → ['苹果','香蕉','橘子']
 fruits.insert(1, '葡萄')  # 在下标 1 插入 → ['苹果','葡萄','香蕉','橘子']
-fruits.extend(['梨', '桃'])  # 追加多个
+fruits.extend(['梨', '桃'])  # 追加多个，extend中传入的是可迭代对象
 print(fruits)
 
 # 删
 fruits.remove('香蕉')  # 按值删除（删第一个匹配的）
-last = fruits.pop()  # 弹出最后一个并返回
+last = fruits.pop()  # 弹出最后一个并返回。fruits.pop(下标) 删除指定位置的元素，并将删除的元素返回
+# fruits.clear() 删除列表中的所有元素（变成一个空列表）
 del fruits[0]  # 按下标删
 
 # 改
 fruits[0] = '西瓜'
 
 # 查
+# 列表[下标]
+
+# 常用方法
 print('西瓜' in fruits)  # True / False
-print(fruits.index('梨'))  # 返回下标
-print(fruits.count('梨'))  # 出现次数
+print(fruits.index('梨'))  # 返回元素的下标
+print(fruits.count('梨'))  # 返回元素出现的次数
+fruits.reverse() # 反转列表（会改变原列表）
+print(fruits)
+nums = [20, 32, 10, 30, 18, 22, 11]
+# nums.sort(reverse=布尔值) # 对列表排序（会改变原列表。默认从小到大，若想从大到小，需将reverse参数设置为True）
+nums.sort()
+print(nums)
+
+# 常用内置函数
+# sorted(数据容器, reverse=布尔值) # 对容器排序（不会改变原数据，返回排序后的新数据。默认从小到大，若想从大到小，需将reverse参数设置为True）
+# len(数据容器) # 返回容器中元素的个数
+# max(数据容器) # 返回容器中或多个值中的最大值
+# min(数据容器) # 返回容器中或多个值中的最小值
+# sum(数据容器) # 对容器中所有元素求和（字符串不能使用sum）
+
+# 序列的其他操作
+# 相加：新序列 = 序列1 + 序列2 （两个同类型的序列才能相加：字符串+字符串、列表+列表、元组+元组）
+# 相乘：新序列 = 序列 * n (n必须是整数，不能是浮点数。序列中的内容重复n次)
 
 # 列表推导式
 # 普通写法
@@ -62,14 +93,40 @@ print(res2)
 print('------------------------------------------------------------')
 
 # 元组tuple：一旦决定就不能改的清单
+# 定义
+t1 = ()
+t2 = tuple()
+print(t1, t2)
+
+# 定义一个元素的元组
+t3 = (1,)
+t4 = (2,)
+
 point = (3, 4)
 print(point[0], point[1])  # 3 4
 
 # point[0] = 10   # 报错 TypeError
 
+# 元组中的元素，不可修改，但是元组中如果存放了可变类型（列表），那可变类型中的内容仍可修改。
+t = (1, 3, [3, 5])
+t[2][1] = 4
+print(t)
+
+# 常用方法
+# 元组.index(元素)
+# 元组.count(元素)
+
+# 常用内置函数
+# max(元组)
+# min(元组)
+# len(元组)
+# sorted(元组) 返回值是列表
+# sum(元组) 元组中的元素必须是数字
+
 # 解包
 x, y = point
 print(x, y)  # 3 4
+
 # 一行交换两个变量
 a, b = 1, 2
 a, b = b, a
@@ -89,12 +146,15 @@ print('------------------------------------------------------------')
 
 # 字典 dict：键值对档案柜
 # 基本用法
+person = {}
+person = dict()
 person = {'name': '李雷', 'age': 18, 'city': '北京'}
 print(person['name'])  # 李雷
 person['age'] = 19  # 修改
+person.update({'name': '李李', 'age': 20}) # 批量修改
 person['job'] = '学生'  # 新增
 del person['city']  # 删除
-print(person)  # {'name': '李雷', 'age': 19, 'job': '学生'}
+print(person)  # {'name': '李李', 'age': 20, 'job': '学生'}
 print('name' in person)  # True
 
 # 安全的查找：get/setdefault
@@ -123,6 +183,17 @@ nums = [1, 2, 3, 4]
 square_map = {num: num * num for num in nums}
 print(square_map)  # {1: 1, 2: 4, 3: 9, 4: 16}
 
+# 找到最贵的水果
+fruits1 = {
+    '苹果': 4.5,
+    '香蕉': 3.2,
+    '橙子': 5.8,
+    '草莓': 12.0,
+    '哈密瓜': 8.8
+}
+key = max(fruits1, key=fruits1.get)
+print(f'最贵的水果是{key}，价格是{fruits1[key]}')
+
 # 练习：词频统计
 # 统计句子 "the quick brown fox jumps over the lazy dog the end" 里每个单词出现的次数。
 sentence = 'the quick brown fox jumps over the lazy dog the end'
@@ -133,27 +204,51 @@ print(word_count)  # {'the': 3, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'o
 
 print('------------------------------------------------------------')
 
-# 集合set：天生去重
-nums = [1, 1, 2, 3, 3, 4]
-unique = set(nums)
-print(unique)  # {1, 2, 3, 4}
+# 集合set：天生去重，可变集合
+s1 = set()
+# 集合中【不能】嵌套【可变集合】，但【可以】嵌套【不可变集合】。
+# 只有【不可变】的东西，才能放进集合。
 
 a = {1, 2, 3, 4}
 b = {3, 4, 5, 6}
+
+# 数学运算
 print(a | b)  # 并集 {1, 2, 3, 4, 5, 6}
 print(a & b)  # 交集 {3, 4}
 print(a - b)  # 差集 {1, 2}
 print(a ^ b)  # 对称差 {1, 2, 5, 6}
 
 # 增
-a.add(10)
+a.add(10) # 向集合中添加元素
+a.update(b) # 向集合中批量添加元素（接收可迭代对象，例如：列表、元素、集合）
+
 # 删
-a.discard(1)  # 不存在不报错
-a.remove(2)  # 不存在会报错
+a.discard(1)  # 从集合中移除制定元素，元素不存在不会报错，无返回
+a.remove(2)  # 从集合中移除制定元素，元素不存在会报错，无返回
+a.pop() # 从集合中移除一个任意元素，返回移除的元素
+# a.clear() # 清空集合，无返回
 print(a)
 
-# frozenset：不可变集合
+# 改
+# 通过 remove + add 的组合，来实现修改的效果
+
+# 查
+# 通过成员运算符（in/not in），判断某个元素是否在集合中
+
+# 常用方法
+# 集合A.difference(集合B) # 找出集合A中，不同于集合B的元素（集合A与集合B都不变），返回一个新的集合
+# 集合A.difference_update(集合B) # 从集合A中，删除集合B中存在的元素（集合A会被修改，而集合B不会），无返回值
+# 集合A.union(集合B) # 合并两个集合，集合A和B都不变，返回一个新集合
+# 集合A.issubset(集合B) # 判断集合A是否是集合B的子集，如果集合A中的所有元素都在集合B中，就返回True，否则返回False
+# 集合A.issuperset(集合B) # 判断集合A是否是集合B的超集，如果集合A中包含了集合B中的所有元素，就返回True，否则返回False
+# 集合A.isdisjiont(集合B) # 判断集合A和集合B是否没有交集，如果没有交集就返回True，但凡有一个公共元素，就返回False
+
+# 集合的循环遍历：使用for循环。集合中的元素没有固定顺序，无法通过下标访问。
+
+# frozenset：不可变集合。接收的参数可以是任意可迭代对象，但最终的返回一定是【不可变集合】
 fs = frozenset([1, 2, 3, 3, 5])
+fs = frozenset((1, 2, 3, 3, 5))
+fs = frozenset({1, 2, 3, 3, 5})
 # fs.add(4)   # 不能改
 # 可以作为 dict 的键、放进 set 里
 
